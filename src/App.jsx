@@ -1,15 +1,26 @@
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
+import { useState } from "react";
 
 function App() {
+  const [currentActivePlayer, setCurrentActivePlayer] = useState("X");
+
   return (
     <main>
       <div id="game-container">
-        <ol id="players">
-          <Player name="Player 1" symbol="X"></Player>
-          <Player name="Player 2" symbol="O"></Player>
+        <ol id="players" className="highlight-player">
+          <Player
+            name="Player 1"
+            symbol="X"
+            isActive={currentActivePlayer === "X" ? true : false}
+          ></Player>
+          <Player
+            name="Player 2"
+            symbol="O"
+            isActive={currentActivePlayer === "O" ? true : false}
+          ></Player>
         </ol>
-        <GameBoard></GameBoard>
+        <GameBoard switchPlayer={setCurrentActivePlayer}></GameBoard>
       </div>
     </main>
   );
