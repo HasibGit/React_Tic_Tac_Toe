@@ -20,7 +20,10 @@ function App() {
             isActive={currentActivePlayer === "O" ? true : false}
           ></Player>
         </ol>
-        <GameBoard switchPlayer={setCurrentActivePlayer}></GameBoard>
+        <GameBoard
+          currentPlayerSymbol={currentActivePlayer}
+          switchPlayer={setCurrentActivePlayer}
+        ></GameBoard>
       </div>
     </main>
   );
