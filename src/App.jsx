@@ -2,12 +2,14 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Logs from "./components/Logs";
 import { useState } from "react";
+import { WINNING_COMBINATIONS } from "../winning_combinations";
 
 function App() {
   const [currentActivePlayer, setCurrentActivePlayer] = useState("X");
   const [player1Name, setPlayer1Name] = useState("Player 1");
   const [player2Name, setPlayer2Name] = useState("Player 2");
   const [turns, setTurns] = useState([]);
+  const [winnerSymbol, setWinnerSymbol] = useState("");
 
   return (
     <main>
@@ -26,10 +28,16 @@ function App() {
             updatePlayerName={setPlayer2Name}
           ></Player>
         </ol>
+
+        {winnerSymbol && (
+          <p>{winnerSymbol === "X" ? player1Name : player2Name} has won!</p>
+        )}
+
         <GameBoard
           currentPlayerSymbol={currentActivePlayer}
           switchPlayer={setCurrentActivePlayer}
           setTurns={setTurns}
+          setWinnerSymbol={setWinnerSymbol}
         ></GameBoard>
       </div>
 

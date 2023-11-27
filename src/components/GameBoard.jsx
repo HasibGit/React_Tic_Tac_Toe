@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { WINNING_COMBINATIONS } from "../../winning_combinations";
 
 const initialBoardState = [
   [null, null, null],
@@ -10,6 +11,7 @@ export default function GameBoard({
   switchPlayer,
   currentPlayerSymbol,
   setTurns,
+  setWinnerSymbol,
 }) {
   const [gameBoard, setGameBoard] = useState(initialBoardState);
 
@@ -39,6 +41,17 @@ export default function GameBoard({
     switchPlayer((prevPlayer) => {
       return prevPlayer === "X" ? "O" : "X";
     });
+
+    for (let combination of WINNING_COMBINATIONS) {
+      const firstCell = gameBoard[combination[0].row][combination[0].column];
+      const secondCell = gameBoard[combination[1].row][combination[1].column];
+      const thirdCell = gameBoard[combination[2].row][combination[2].column];
+
+      if (firstCell && firstCell === secondCell && secondCell === thirdCell) {
+        setWinnerSymbol(firstCell);
+        break;
+      }
+    }
   };
 
   return (
@@ -48,7 +61,12 @@ export default function GameBoard({
           <ol>
             {row.map((playerValue, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleSelectSquare(rowIndex, colIndex)}>
+                <button
+                  disabled={
+                    gameBoard[rowIndex][colIndex] != null ? true : false
+                  }
+                  onClick={() => handleSelectSquare(rowIndex, colIndex)}
+                >
                   {playerValue}
                 </button>
               </li>
