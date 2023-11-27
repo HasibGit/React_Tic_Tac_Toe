@@ -6,7 +6,11 @@ const initialBoardState = [
   [null, null, null],
 ];
 
-export default function GameBoard({ switchPlayer, currentPlayerSymbol }) {
+export default function GameBoard({
+  switchPlayer,
+  currentPlayerSymbol,
+  setTurns,
+}) {
   const [gameBoard, setGameBoard] = useState(initialBoardState);
 
   const handleSelectSquare = (rowIndex, colIndex) => {
@@ -15,6 +19,21 @@ export default function GameBoard({ switchPlayer, currentPlayerSymbol }) {
       updatedGameBoard[rowIndex][colIndex] = currentPlayerSymbol;
 
       return updatedGameBoard;
+    });
+
+    setTurns((prevTurns) => {
+      return [
+        {
+          cell: { row: rowIndex, col: colIndex },
+          symbol:
+            prevTurns.length > 0
+              ? prevTurns[0].symbol === "X"
+                ? "O"
+                : "X"
+              : "X",
+        },
+        ...prevTurns,
+      ];
     });
 
     switchPlayer((prevPlayer) => {

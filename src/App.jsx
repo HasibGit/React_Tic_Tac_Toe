@@ -1,9 +1,11 @@
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
+import Logs from "./components/Logs";
 import { useState } from "react";
 
 function App() {
   const [currentActivePlayer, setCurrentActivePlayer] = useState("X");
+  const [turns, setTurns] = useState([]);
 
   return (
     <main>
@@ -23,7 +25,10 @@ function App() {
         <GameBoard
           currentPlayerSymbol={currentActivePlayer}
           switchPlayer={setCurrentActivePlayer}
+          setTurns={setTurns}
         ></GameBoard>
+
+        <Logs turns={turns}></Logs>
       </div>
     </main>
   );
