@@ -27,9 +27,9 @@ function App() {
           switchPlayer={setCurrentActivePlayer}
           setTurns={setTurns}
         ></GameBoard>
-
-        <Logs turns={turns}></Logs>
       </div>
+
+      <Logs turns={turns}></Logs>
     </main>
   );
 }
