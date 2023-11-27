@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol, isActive }) {
+export default function Player({ name, symbol, isActive, updatePlayerName }) {
   const [playerName, setPlayerName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -13,7 +13,10 @@ export default function Player({ name, symbol, isActive }) {
             type="text"
             value={playerName}
             required
-            onChange={() => setPlayerName(event.target.value)}
+            onChange={() => {
+              setPlayerName(event.target.value);
+              updatePlayerName(event.target.value);
+            }}
           />
         )}
         <span className="player-symbol">{symbol}</span>
