@@ -1,8 +1,8 @@
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Logs from "./components/Logs";
+import GameOver from "./components/GameOver";
 import { useState } from "react";
-import { WINNING_COMBINATIONS } from "../winning_combinations";
 
 function App() {
   const [currentActivePlayer, setCurrentActivePlayer] = useState("X");
@@ -30,7 +30,9 @@ function App() {
         </ol>
 
         {winnerSymbol && (
-          <p>{winnerSymbol === "X" ? player1Name : player2Name} has won!</p>
+          <GameOver
+            winner={winnerSymbol === "X" ? player1Name : player2Name}
+          ></GameOver>
         )}
 
         <GameBoard
