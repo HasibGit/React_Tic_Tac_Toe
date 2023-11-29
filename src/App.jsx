@@ -18,12 +18,14 @@ function App() {
   const [player2Name, setPlayer2Name] = useState("Player 2");
   const [turns, setTurns] = useState([]);
   const [winnerSymbol, setWinnerSymbol] = useState("");
+  const [draw, setDraw] = useState(false);
 
   const restartGame = () => {
     setGameBoard(initialBoardState);
     setCurrentActivePlayer("X");
     setTurns([]);
     setWinnerSymbol("");
+    setDraw(false);
   };
 
   useEffect(() => {
@@ -37,6 +39,21 @@ function App() {
         setWinnerSymbol(firstCell);
         break;
       }
+    }
+
+    let moveLeft = false;
+
+    for (let i = 0; i < gameBoard.length; i++) {
+      for (let j = 0; j < gameBoard[i].length; j++) {
+        if (gameBoard[i][j] == null) {
+          moveLeft = true;
+          break;
+        }
+      }
+    }
+
+    if (!moveLeft) {
+      setDraw(true);
     }
   }, [gameBoard, setWinnerSymbol]);
 
@@ -86,9 +103,10 @@ function App() {
           ></Player>
         </ol>
 
-        {winnerSymbol && (
+        {(winnerSymbol || draw) && (
           <GameOver
             winner={winnerSymbol === "X" ? player1Name : player2Name}
+            isDraw={draw}
             restartGame={restartGame}
           ></GameOver>
         )}
