@@ -19,6 +19,13 @@ function App() {
   const [turns, setTurns] = useState([]);
   const [winnerSymbol, setWinnerSymbol] = useState("");
 
+  const restartGame = () => {
+    setGameBoard(initialBoardState);
+    setCurrentActivePlayer("X");
+    setTurns([]);
+    setWinnerSymbol("");
+  };
+
   useEffect(() => {
     // Check for a winner after the gameBoard state has been updated
     for (let combination of WINNING_COMBINATIONS) {
@@ -82,6 +89,7 @@ function App() {
         {winnerSymbol && (
           <GameOver
             winner={winnerSymbol === "X" ? player1Name : player2Name}
+            restartGame={restartGame}
           ></GameOver>
         )}
 
